@@ -1,0 +1,171 @@
+================================================================================
+AI INCIDENT LEARNING & PREVENTION COPILOT — TEST SUITE & SCENARIO QUERIES
+Official Vector Database: ChromaDB (collection: jira_tickets)
+================================================================================
+
+This document contains test queries covering all features and flows of the Copilot:
+1. High-Confidence Matches (>= 70%) -> Llama 3 Resolution + Citations (Assignee & Reporter)
+2. Slot-Filling Gatekeeper Tests -> Queries with missing mandatory parameters
+3. Unseen Incident Queries (< 70%) -> "This issue has not occurred before" + Ingestion to jira_tickets
+4. Raw Alarm / Syslog Streams -> Parameter extraction and diagnostic matching
+5. Multi-Node / Core Component Tests (CMM, CMG, NRD)
+
+--------------------------------------------------------------------------------
+CATEGORY 1: HIGH-CONFIDENCE MATCHES (EXPECT >= 70% CONFIDENCE + CITATIONS)
+--------------------------------------------------------------------------------
+
+[TEST 1.1] CMM - Legacy SCP Disabled by Security Hardening
+Query:
+CMM26.7 SW Release security hardening disabled legacy scp command during file transfer. How do we transfer files to remote server?
+Expected Extracted Fields:
+  - Component: CMM
+  - Build: 26.7.0.1 EC2 (or 26.7)
+  - RCA Category: Nokia-Enhancement
+Expected Outcome:
+  - Confidence Score: >= 80%
+  - Citation: Reporter "Alejandro Chaparro (Nokia)", Assignee "Unassigned"
+  - Solution: Recommends using SFTP instead of legacy SCP with direct sftp syntax.
+
+---
+
+[TEST 1.2] CMG - IP Pool Distribution Not Working
+Query:
+IP pools are not being equally distributed on CMG build 25.7.R15. IP pool utilization is unbalanced and pools not receiving user traffic.
+Expected Extracted Fields:
+  - Component: CMG
+  - Build: 25.7.R15
+  - RCA Category: Nokia-Config
+Expected Outcome:
+  - Confidence Score: >= 80%
+  - Citation: Reporter & Assignee "Abhishek K. Mishra (Nokia)"
+  - Solution: Configure 'ip-pool-distribution' under Network Realm, add 'use-prefixes-immediately', cycle zero-utilization pool.
+
+---
+
+[TEST 1.3] NRD - Egress-proxy Pod CrashLoopBackOff
+Query:
+Egress-proxy Pod in CrashLoopBackOff in NRD 25.7 build R1 due to Envoy configuration error lb_policy unknown field.
+Expected Extracted Fields:
+  - Component: NRD
+  - Build: R1
+  - RCA Category: Nokia-Procedural
+Expected Outcome:
+  - Confidence Score: >= 80%
+  - Citation: Reporter & Assignee "Haritansh Kumar Sharma (Nokia)"
+  - Solution: Enable tracing in values.yaml with jaeger serviceEndpoint zipkin.ns-rmi-istio.svc.cluster.local:9411.
+
+---
+
+[TEST 1.4] CMM - Subscriber Imbalance due to includeMappedGummei
+Query:
+Subscriber imbalance in CMM pool on build 0.13 when enabling includeMappedGummei without RC change or CMM lock/unlock.
+Expected Extracted Fields:
+  - Component: CMM
+  - Build: 0.13
+  - RCA Category: Nokia-Other
+Expected Outcome:
+  - Confidence Score: >= 80%
+  - Citation: Reporter & Assignee "Rahul Wardekar (Nokia)"
+  - Solution: Enable includeMappedGummei on all CMMs and perform RC change or lock/unlock to advertise mapped GUMMEI to all eNodeBs.
+
+---
+
+[TEST 1.5] CMM - spinner.yaml manual edit failure
+Query:
+After package generation for CMM25.7 via 3LS tool, spinner.yaml file inside spinner folder was manually modified on build 12.
+Expected Extracted Fields:
+  - Component: CMM
+  - Build: 12
+  - RCA Category: Nokia-Migration/Upgrade
+Expected Outcome:
+  - Confidence Score: >= 80%
+  - Citation: Reporter "Pushp Shukla (EXT-Nokia)"
+  - Solution: Strictly do not modify anything inside spinner.yaml after package/template creation.
+
+---
+
+[TEST 1.6] CMG - Deployment Readiness Check Invalid Username
+Query:
+CMG deployment stuck in Pending phase on build 26.7.R1 with CliConnectionError failed to connect invalid username during readiness check.
+Expected Extracted Fields:
+  - Component: CMG
+  - Build: 26.7.R1
+  - RCA Category: Nokia-Config
+Expected Outcome:
+  - Confidence Score: >= 80%
+  - Citation: Assignee & Reporter "Unassigned"
+  - Solution: Verify CMG authentication credentials in deployment namespace; ensure admin username matches Kubernetes secret.
+
+--------------------------------------------------------------------------------
+CATEGORY 2: GATEKEEPER & SLOT-FILLING TESTS (MISSING MANDATORY FIELDS)
+--------------------------------------------------------------------------------
+
+[TEST 2.1] Query with Missing Build Version (User must supply Build)
+Query:
+Packet drop observed on CMG during high traffic attach burst.
+Expected Extracted Fields:
+  - Component: CMG
+  - Build: Unknown (or empty) -> GATEKEEPER HALTS SEARCH
+Expected User Action:
+  - UI displays: "Missing Mandatory Fields: Build Version"
+  - User fills in: "25.7.R15" into Build Version input
+  - Search button becomes active.
+
+---
+
+[TEST 2.2] Query with Symptoms Only (Missing Component & Build)
+Query:
+Core dump generated during failover and watchdog timer expired.
+Expected Extracted Fields:
+  - Component: Unknown
+  - Build: Unknown -> GATEKEEPER HALTS SEARCH
+Expected User Action:
+  - UI warns: "Missing Mandatory Fields: Component / Node, Build Version"
+  - User fills in Component: "CMM", Build: "12"
+  - User clicks Run Hybrid Search.
+
+--------------------------------------------------------------------------------
+CATEGORY 3: UNSEEN INCIDENT TESTS (EXPECT < 70% -> PROMPT TO LOG NEW JIRA TICKET)
+--------------------------------------------------------------------------------
+
+[TEST 3.1] Completely Unseen Hardware Incident
+Query:
+Optical transceiver SFP+ 10G port physical link flapping on Edge Router ER-88 build 9.9.2 due to dirty fiber connector.
+Expected Extracted Fields:
+  - Component: Edge Router ER-88
+  - Build: 9.9.2
+  - RCA Category: Hardware Fiber Degradation
+Expected Outcome:
+  - Confidence Score: < 70% (e.g. 30% - 50%)
+  - Card Displayed: "This issue has not been occured before would you like to log it here."
+  - Prefilled fields: Component: "Edge Router ER-88", Build: "9.9.2", RCA Category: "Hardware Fiber Degradation"
+  - User fills solution and clicks "Ingest & Permanently Learn New Incident" -> saves to jira_tickets.
+
+---
+
+[TEST 3.2] Unseen 5G Standalone Database Outage
+Query:
+MongoDB replica set split-brain state in Cloud Native 5G Core NRF build 3.1.0 causing heartbeats to timeout across pods.
+Expected Outcome:
+  - Confidence Score: < 70%
+  - Prompts engineer to register verified learning directly into ChromaDB jira_tickets.
+
+--------------------------------------------------------------------------------
+CATEGORY 4: RAW ALARM & LOG STREAM SNIPPETS
+--------------------------------------------------------------------------------
+
+[TEST 4.1] Raw Envoy Proxy Log Snippet
+Query:
+2026-09-03T12:08:00Z [critical][envoy] Protobuf message (type envoy.config.bootstrap.v3.Bootstrap reason INVALID_ARGUMENT: invalid JSON in static_resources.listeners[2]: message envoy.config.listener.v3.Listener, near 1:2329: no such field: 'lb_policy') has unknown fields on NRD build R1.
+Expected Outcome:
+  - Correctly extracts Component "NRD", Build "R1", and matches the Egress-proxy Pod CrashLoopBackOff ticket.
+  - Returns >= 80% confidence and Jaeger tracing values.yaml resolution.
+
+---
+
+[TEST 4.2] Raw CLI Output Revert Procedure
+Query:
+Testing Internet ping procedure from CMG application before first data attach test: ping 8.8.8.8 failed on vprn 401.
+Expected Outcome:
+  - Matches "Internet ping test procedure and cleanup steps from CMG application".
+  - Returns CLI verification procedure with ICMP sequence details.
