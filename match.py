@@ -149,5 +149,5 @@ def execute_agentic_match(user_query: str, collection_name: str = "jira_tickets"
 # --- Example Usage ---
 if __name__ == "__main__":
     test_query = "BGP session flapping on edge router CMG-12 after firmware push build 14.2"
-    result = execute_agentic_match(test_query, collection_name="jira_db")
+    result = execute_agentic_match(test_query, collection_name="jira_tickets")
     print(f"\nRESULT: {json.dumps(result, indent=2)}")

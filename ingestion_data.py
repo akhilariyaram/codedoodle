@@ -24,7 +24,7 @@ def ingest_data(
     Technical_Solution_Provided: str,
     Technology: list[str],
     Description: str,
-    collection_name: str = "jira_db",
+    collection_name: str = "jira_tickets",
 ) -> str:
     """
     Combines all parameters into a single string, generates an embedding

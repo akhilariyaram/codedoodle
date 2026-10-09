@@ -190,7 +190,7 @@ SAMPLE_TICKETS = [
 ]
 
 
-def seed_database(collections=["jira_db", "testing_db"]):
+def seed_database(collections=["jira_tickets"]):
     print("🚀 Starting ChromaDB Data Ingestion for 10 Telecom Incidents...")
     for target_col in collections:
         print(f"\n📦 Seeding collection: '{target_col}'...")

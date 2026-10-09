@@ -215,7 +215,7 @@ def save_feedback(payload: FeedbackRequest):
         else:
             log_stage(endpoint, 2, f"Registering new verified incident record submitted by {author_name}.")
 
-        log_stage(endpoint, 3, "Generating embedding via Ollama 'embeddinggemma' and storing in ChromaDB collection 'jira_db'...")
+        log_stage(endpoint, 3, "Generating embedding via Ollama 'embeddinggemma' and storing in ChromaDB collection 'jira_tickets'...")
         point_id = ingest_data(
             summary=effective_summary,
             Issue_Type=payload.issue_type,

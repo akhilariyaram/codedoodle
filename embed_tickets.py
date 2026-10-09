@@ -32,7 +32,7 @@ def load_concatenated_json(filepath):
 def embed_all(target_collection="jira_tickets"):
     records = load_concatenated_json("tickets.json")
     print(f"Loaded {len(records)} tickets from tickets.json.")
-    print(f"Target ChromaDB Collection: '{target_collection}' and 'jira_db'")
+    print(f"Target ChromaDB Collection: '{target_collection}'")
 
     for i, t in enumerate(records, 1):
         summary = t.get("summary", "Untitled Ticket")
@@ -40,7 +40,7 @@ def embed_all(target_collection="jira_tickets"):
         build = t.get("Build", "Unknown")
         print(f"[{i}/{len(records)}] Ingesting -> Component: '{components}', Build: '{build}' | {summary[:50]}...")
         
-        # Ingest into jira_tickets
+        # Ingest strictly into jira_tickets
         ingest_data(
             summary=summary,
             Issue_Type=t.get("Issue_Type", "Knowledge Base"),
@@ -61,28 +61,7 @@ def embed_all(target_collection="jira_tickets"):
             collection_name=target_collection
         )
 
-        # Also ingest into jira_db for full backward compatibility
-        ingest_data(
-            summary=summary,
-            Issue_Type=t.get("Issue_Type", "Knowledge Base"),
-            Assignee=t.get("Assignee", "Unassigned"),
-            Components=components,
-            Created=t.get("Created", datetime.utcnow().isoformat()),
-            Priority=t.get("Priority", "Medium"),
-            Reporter=t.get("Reporter", "System"),
-            Build=build,
-            Customers=t.get("Customers", []),
-            Market=t.get("Market", "Global"),
-            Product_Release=t.get("Product_Release", "Unknown"),
-            RCA_Category=t.get("RCA_Category", "Other"),
-            Sub_Components=t.get("Sub_Components", "General"),
-            Technical_Solution_Provided=t.get("Technical_Solution_Provided", "No solution recorded."),
-            Technology=t.get("Technology", ["Telecom"]),
-            Description=t.get("Description", summary),
-            collection_name="jira_db"
-        )
-
-    print(f"\nSUCCESS: All {len(records)} tickets embedded into ChromaDB '{target_collection}' and 'jira_db'!")
+    print(f"\nSUCCESS: All {len(records)} tickets embedded into ChromaDB collection '{target_collection}'!")
 
 if __name__ == "__main__":
     embed_all("jira_tickets")
