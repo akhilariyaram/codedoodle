@@ -1,0 +1,27 @@
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Vector DB storage (optional to ignore or keep; usually ignored or rebuilt via embed_tickets.py)
+# chroma_db/
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables
+.env
+.env.*
+
+# Logs
+*.log

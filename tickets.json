@@ -1,0 +1,643 @@
+{
+    "summary": "spinner.yaml file shouldn’t be manually appended after the template is created",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-09-03T09:59:00",
+    "Priority": "Unknown",
+    "Reporter": "Pushp Shukla (EXT-Nokia)",
+    "Build": "12",
+    "Case_ID": "05960701",
+    "Customers": [
+        "VODAFONE IDEA LIMITED"
+    ],
+    "Market": "IND",
+    "Phase": "Upgrade",
+    "Product_Release": "25.7",
+    "Program.": "Normal Project",
+    "RCA_Category": "Nokia-Migration/Upgrade",
+    "Sub_Components": "Upgrade - Redeployment",
+    "Technical_Solution_Provided": "Don't change anything inside the spinner.yaml file after final package/template generation.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "After generation of package for CMM25.7 via 3LS tool, modification was done for spinner.yaml inside spinner folder due to this modification not able to verify package – CMM Ticket:: 05960701"
+}
+{
+    "summary": "CMM26.7 SW Release the security hardening disabled the legacy scp",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-08-21T19:56:00",
+    "Priority": "Unknown",
+    "Reporter": "Alejandro Chaparro (Nokia)",
+    "Build": "26.7.0.1 EC2",
+    "Customers": [
+        "T-MOBILE USA, INC."
+    ],
+    "Market": "NAM",
+    "Product_Release": "26.7",
+    "RCA_Category": "Nokia-Enhancement",
+    "Sub_Components": "Project Learning",
+    "Technical_Solution_Provided": "Use SFTP instead of legacy SCP, SFTP is preferred over SCP due to its enhanced security, robust protocol, and richer feature set, offering an interactive and more reliable file transfer experience. \n\nWe can use a single sftp command to directly download a file from a remote server to your local home folder. \n\nsftp username@remote_host:/path/to/remote/file ~/",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA",
+        "5G-SA"
+    ],
+    "Description": "According to L4, the SCP command used for transferring files was disabled for security reasons in CMM26.7 SW Release."
+}
+{
+    "summary": "Trusted WLAN IPv4 Parameters (IP4CP)",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMG",
+    "Created": "2026-10-05T12:58:00",
+    "Priority": "Unknown",
+    "Reporter": "Thang Nguyen Van (Nokia)",
+    "Build": "R1",
+    "Customers": [
+        "VIETNAM POST AND TELECOMMUNICATION INDUSTRY TECHNOLOGY JOINT STOCK COMPANY"
+    ],
+    "Market": "APJ",
+    "Product_Release": "26.7",
+    "RCA_Category": "Other",
+    "Sub_Components": "Testing",
+    "Technical_Solution_Provided": "Not yet.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA"
+    ],
+    "Description": "We're testing Trusted Wi-Fi access over the S2a interface between Cisco TWAG and Nokia CMG (CUPS). The UE bearer is created successfully, but immediately after receiving the Create Session Response, the TWAG sends a Delete Session Request.\n\nCisco indicated that the Trusted WLAN IPv4 Parameters / IPv4 Configuration Parameters (IP4CP) IE is missing from the Create Session Response. We checked the CMG Configuration Guide and found that this IE is not supported.\n\nDo you have any idea how we can handle this case?"
+}
+{
+    "summary": "Internet ping test procedure and cleanup steps from CMG application",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMG",
+    "Created": "2026-09-04T00:00:00",
+    "Priority": "Unknown",
+    "Reporter": "Unassigned",
+    "Build": "Unknown",
+    "Customers": [],
+    "Market": "Unknown",
+    "Product_Release": "Unknown",
+    "RCA_Category": "Other",
+    "Sub_Components": "Verification",
+    "Technical_Solution_Provided": "Ping Test Verification:\nTime=1.23ms. \n64 bytes from 8.8.8.8: icmp_seq=3 ttl=117 time=1.16ms. \n64 bytes from 8.8.8.8: icmp_seq=4 ttl=117 time=1.10ms. \n64 bytes from 8.8.8.8: icmp_seq=5 ttl=117 time=1.16ms. \n\nRevert CLI Procedure:\n*A:TESTCMGU01>config>router>policy-options# begin \n*A:TESTCMGU01>config>router>policy-options# policy-statement \"Policy_INTERNET_MGGrp1_Export\" \n*A:TESTCMGU01>config>router>policy-options>policy-statement# no entry 30 \n*A:TESTCMGU01>config>router>policy-options# back \n*A:TESTCMGU01>config>router>policy-options# no prefix-list \"prefix_iot_test\" \n*A:TESTCMGU01>config>router>policy-options# commit \n*A:TESTCMGU01>config>router>policy-options# exit all \n*A:TESTCMGU01# configure service vprn 401 \n*A:TESTCMGU01>config>service>vprn# interface \"ping-loopback\" shutdown \n*A:TESTCMGU01>config>service>vprn# no interface \"ping-loopback\" \n*A:TESTCMGU01>config>service>vprn# back \n*A:TESTCMGU01>config>service# vprn 400 \n*A:TESTCMGU01>config>service>vprn# ip-local-pool \"IOT\" no reserved-ipv4 \n*A:TESTCMGU01# tools perform router 400 ip-local-pool \"IOT\" no reserve-ipv4 \nMINOR: CLI No IPv4 address reserved for this pool.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "Steps provided to be used to test the Internet ping from CMG application. This is required to check before the first data attach test. By this way we will verify the connection between CMG and Internet Server."
+}
+{
+    "summary": "Enabling includeMappedGummei without RC Change or CMM lock/unlock can cause Subscriber Imbalance in CMM pool",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Rahul Wardekar (Nokia)",
+    "Components": "CMM, CMM-a2, CMM-a8",
+    "Created": "2026-09-23T17:18:00",
+    "Priority": "Unknown",
+    "Reporter": "Rahul Wardekar (Nokia)",
+    "Build": "0.13",
+    "Customers": [
+        "OOREDOO Q.S.C"
+    ],
+    "Market": "MEA",
+    "Phase": "Testing",
+    "Product_Release": "25.7",
+    "Program.": "Normal Project",
+    "RCA_Category": "Nokia-Other",
+    "Sub_Components": "Testing",
+    "Technical_Solution_Provided": "For consistent behavior and optimal load balancing in a pool of combined MME/SGSN CMMs, the includeMappedGummei parameter should be enabled on all CMMs and RC change or CMM lock/unlock should be done to force CMM to send mapped GUMMEI in ENB configuration update to all ENBS in the pool. This ensures that all CMMs can retain their respective 2G/3G subscribers during inter-RAT mobility, minimizing inter-CMM signaling and maintaining subscriber balance.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA",
+        "5G-SA"
+    ],
+    "Description": "Enabling includeMappedGummei and forcing CMM to send ENB configuration update via RC change or CMM lock/unlock on only one CMM in a pool of three results in asymmetric MME selection behavior during inter-RAT mobility (2G/3G to 4G). The CMM with the parameter enabled will advertise mapped GUMMEIs to eNBs, allowing UEs previously served by its collocated SGSN to be routed back to it. However, the other two CMMs will only advertise their native LTE GUMMEIs. Consequently, UEs moving from 2G/3G areas served by the other two CMMs will not be routed to their original CMMs but will instead be distributed among all three CMMs (or based on eNB load balancing) because the eNBs cannot match the mapped GUMMEI to a specific CMM. This leads to subscriber imbalance and increased inter-CMM signaling (SGSN context requests) for the two CMMs without the feature enabled."
+}
+{
+    "summary": "Egress-proxy Pod in Crashloopbackoff in the NRD 25.7 Version",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Haritansh Kumar Sharma (Nokia)",
+    "Components": "NRD",
+    "Created": "2026-09-03T12:08:00",
+    "Priority": "Unknown",
+    "Reporter": "Haritansh Kumar Sharma (Nokia)",
+    "Build": "R1",
+    "Customers": [
+        "RAKUTEN MOBILE, INC."
+    ],
+    "Market": "APJ",
+    "Phase": "Deployment",
+    "Product_Release": "25.7",
+    "Program.": "Normal Project",
+    "RCA_Category": "Nokia-Procedural",
+    "Sub_Components": "Deployment",
+    "Technical_Solution_Provided": "Resolved by enabling tracing in values.yaml:\n  jaeger:\n    enabled: true\n    serviceEndpoint: zipkin.ns-rmi-istio.svc.cluster.local\n    servicePort: 9411",
+    "Technology": [
+        "5G-SA"
+    ],
+    "Description": "Egress-proxy pods entered CrashLoopBackOff due to an Envoy configuration error: Protobuf message (type envoy.config.bootstrap.v3.Bootstrap reason INVALID_ARGUMENT: invalid JSON in static_resources.listeners[2]: message envoy.config.listener.v3.Listener, near 1:2329: no such field: 'lb_policy') has unknown fields."
+}
+{
+    "summary": "IP Pool Distribution Not Working – Troubleshooting and Resolution",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Abhishek K. Mishra (Nokia)",
+    "Components": "CMG",
+    "Created": "2026-09-03T11:59:00",
+    "Priority": "Unknown",
+    "Reporter": "Abhishek K. Mishra (Nokia)",
+    "Build": "25.7.R15",
+    "Customers": [
+        "ODIDO NETHERLANDS B.V."
+    ],
+    "Market": "EUR",
+    "Phase": "Testing",
+    "Product_Release": "25.7",
+    "Program.": "Normal Project",
+    "RCA_Category": "Nokia-Config",
+    "Sub_Components": "Project Learning",
+    "Technical_Solution_Provided": "1. Ensure 'ip-pool-distribution' is configured under the Network Realm.\n2. Add 'use-prefixes-immediately' under the affected IP pool configuration.\n3. Remove the zero-utilization IP pool from the IP Pool Name configuration under the Network Realm, then add it back for the new CLI configuration to take effect.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "IP pools were not being equally distributed. During the investigation, it was observed that IP pool utilization was not balanced, and some pools were not receiving user traffic as expected."
+}
+{
+    "summary": "CMG readiness check failed with CliConnectionError: Invalid username during deployment",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMG",
+    "Created": "2026-09-01T07:02:00",
+    "Priority": "Unknown",
+    "Reporter": "Unassigned",
+    "Build": "26.7.R1",
+    "Customers": [],
+    "Market": "Unknown",
+    "Product_Release": "26.7",
+    "RCA_Category": "Nokia-Config",
+    "Sub_Components": "Deployment",
+    "Technical_Solution_Provided": "Verify the CMG authentication credentials and secret keys in the deployment namespace. Ensure that the admin username and secret references in the CMG Custom Resource match the expected Kubernetes secret values. Update the secret or Custom Resource if the username is invalid.",
+    "Technology": [
+        "4G",
+        "5G-SA"
+    ],
+    "Description": "CMG deployment stuck in Pending phase with readiness check failure: 503: CliConnectionError: failed to connect: Error: Invalid username. The operator controller fails to authenticate with the CMG CLI interface during readiness polling due to an invalid or misconfigured admin username in the deployment credentials."
+}
+{
+    "summary": "spinner.yaml file shouldn’t be manually appended after the template is created",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-09-03T09:59:00",
+    "Priority": "Unknown",
+    "Reporter": "Pushp Shukla (EXT-Nokia)",
+    "Build": "12",
+    "Customers": [
+        "VODAFONE IDEA LIMITED"
+    ],
+    "Market": "IND",
+    "Product_Release": "25.7",
+    "RCA_Category": "Nokia-Migration/Upgrade",
+    "Sub_Components": "Upgrade - Redeployment",
+    "Technical_Solution_Provided": "Don't change anything inside the spinner.yaml file after final package/template generation.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "After generation of package for CMM25.7 via 3LS tool, modification was done for spinner.yaml inside spinner folder due to this modification not able to verify package – CMM Ticket:: 05960701"
+}
+{
+    "summary": "test TSN is No",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-09-02T16:09:00",
+    "Priority": "Unknown",
+    "Reporter": "Hind Manssouri (Nokia)",
+    "Build": "100",
+    "Customers": [
+        "1GLOBAL TECHNOLOGIES (PORTUGAL), S.A."
+    ],
+    "Market": "IND",
+    "Product_Release": "26.3",
+    "RCA_Category": "Human Error",
+    "Sub_Components": "Unknown",
+    "Technical_Solution_Provided": "Test",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "test TSN is No"
+}
+{
+    "summary": "Standalone NSSF OAM is not accessible via SSH for version 25.7.R2 over NCP",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "NRD",
+    "Created": "2026-09-02T15:38:00",
+    "Priority": "Unknown",
+    "Reporter": "Zia Ullah (Nokia)",
+    "Build": "R2",
+    "Customers": [
+        "VODAFONE QATAR P.Q.S.C"
+    ],
+    "Market": "MEA",
+    "Product_Release": "25.7",
+    "RCA_Category": "Nokia-Config",
+    "Sub_Components": "Product Design",
+    "Technical_Solution_Provided": "oc get deployment -n acqa-nssf01-ns \n\noc edit deployment nrd-oam-v1 -n acqa-nssf01-ns \n\nGo to Cli container and add below highlighted in capabilities: \n\nname: cli \n        resources: \n          limits: \n            cpu: 500m \n            memory: 1500Mi \n          requests: \n            cpu: 500m \n            memory: 1500Mi \n        securityContext: \n          allowPrivilegeEscalation: true \n          capabilities: \n            add: \n            - NET_ADMIN \n            - NET_RAW \n            - NET_BIND_SERVICE \n- SYS_CHROOT \n- AUDIT_WRITE",
+    "Technology": [
+        "5G-SA"
+    ],
+    "Description": "After Deployment of Standalone NSSF of version 25.7.R2 over NCP, OAM was not accessible via ssh ends with error: Connection closed by 10.xx.xx.xx port 22.\n\n1) Standalone NSSF still works in Legacy-cli mode, users were created by accessing:\n\noc -n acqa-nssf01-ns exec -it nrd-oam-v1-5bfbc558bf-bbn29 -c cli – bash\n\ncli\n\n2) Checked scc.yaml for NCP.\n\n3) Checked deployment.yaml for nssf and found cli container capabilities were missing:\nname: cli\n        resources:\n          limits:\n            cpu: 500m\n            memory: 1500Mi\n          requests:\n            cpu: 500m\n            memory: 1500Mi\n        securityContext:\n          allowPrivilegeEscalation: true\n          capabilities:\n            add:\n            - NET_ADMIN\n            - NET_RAW\n            - NET_BIND_SERVICE"
+}
+{
+    "summary": "Testing email template-please ignore",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-09-02T13:48:00",
+    "Priority": "Unknown",
+    "Reporter": "Hind Manssouri (Nokia)",
+    "Build": "100",
+    "Customers": [
+        "1GLOBAL TECHNOLOGIES (PORTUGAL), S.A."
+    ],
+    "Market": "NAM",
+    "Product_Release": "23.5",
+    "RCA_Category": "Customer-Environment",
+    "Sub_Components": "Unknown",
+    "Technical_Solution_Provided": "Test",
+    "Technology": [
+        "2G",
+        "3G"
+    ],
+    "Description": "Testing email template-please ignore"
+}
+{
+    "summary": "Multus CNI IP allocation failure for IPDS secondary interface due to CIQ IP pool exhaustion during CMM deployment",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-09-01T00:00:00",
+    "Priority": "Unknown",
+    "Reporter": "Unassigned",
+    "Build": "Unknown",
+    "Customers": [],
+    "Market": "Unknown",
+    "Product_Release": "Unknown",
+    "RCA_Category": "Other",
+    "Sub_Components": "Deployment",
+    "Technical_Solution_Provided": "The IP assignments for all dual-IPDS interfaces were reviewed and updated. New IP addresses were allocated from the second-last four available IP addresses in the CIQ IP pool. After updating the IP assignments, the Multus CNI IP allocation issue was resolved and the affected pods were able to proceed.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "During the CMM deployment, multiple deployment and Kubernetes configuration issues were encountered that impacted pod creation, resource allocation, and network interface initialization. The issues were analyzed and resolved in coordination with the NCP, Cloud, and Fabric teams.\n\nRoot Cause: \nThe required secondary IP addresses were not available for allocation from the configured CIQ IP pool/range, resulting in Multus CNI being unable to configure the IPDS secondary interface."
+}
+{
+    "summary": "BIOS for gen12 – documentation inconsistency",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMG-a2",
+    "Created": "2026-08-31T16:44:00",
+    "Priority": "Unknown",
+    "Reporter": "Irina Adamenko (EXT-Nokia)",
+    "Build": "1",
+    "Customers": [
+        "VODAFONE PROCUREMENT COMPANY S.A.R.L."
+    ],
+    "Market": "EUR",
+    "Product_Release": "26.7",
+    "RCA_Category": "Nokia-Documentation error",
+    "Sub_Components": "Unknown",
+    "Technical_Solution_Provided": "For this Slots. You need to change Device Level Configuration - > PCI Virtual Functions Advertised from 8 to 32",
+    "Technology": [
+        "3G",
+        "4G"
+    ],
+    "Description": "The BIOS configuration was done according to the documentation, cmg start command wasn’t getting cmg VMs up\n\nAfter discussing with Telia project colleagues, we applied on BIOS the following change\n\nFor this Slots. You need to change Device Level Configuration - > PCI Virtual Functions Advertised from 8 to 32\n\nIn the documentation there is no such step \nAnd than cmg start works and VMs are up\n\nThe query is: please, confirm the step and please add to Documentation release."
+}
+{
+    "summary": "Script to decode a single SGSN PCMD (Fields 15-33 and raw data log)",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "SGSN",
+    "Created": "2026-08-31T00:00:00",
+    "Priority": "Unknown",
+    "Reporter": "Unassigned",
+    "Build": "Unknown",
+    "Customers": [],
+    "Market": "Unknown",
+    "Product_Release": "Unknown",
+    "RCA_Category": "Other",
+    "Sub_Components": "Scripting",
+    "Technical_Solution_Provided": "Script to decode a single SGSN PCMD mapping fields from SgsnRaCapArray4Info through SgsnTlliPtmsi.\n\nRaw Data Record:\n1;2;1E80701;5;-03:00;08:31;2026;33189810;33190510;1;3;404;7E;8;724066704172953;356151144369830;724;06;4266;1;;1;0;;E;;1;;;;;;;33189990;33190290;;41;0;1;724;06;365;724;06;4266;42093;1;93;94;15;16;19;20;98;99;105;;;;;;;;;;;0;;0;;0;;0;;7E;7E;;;;;;;;;;;;;;;;;;;;[1;;;0;0;1;0C9D401600800D35;;;;;;;;;;;;;;;724;06;65534;;;;;;;;;;;;;|",
+    "Technology": [
+        "2G",
+        "3G"
+    ],
+    "Description": "Detailed field mapping and PCMD log snippet covering parameters from SgsnRaCapArray4Info to SgsnTlliPtmsi."
+}
+{
+    "summary": "Script to decode a single SGSN PCMD",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "SGSN",
+    "Created": "2026-08-31T00:00:00",
+    "Priority": "Unknown",
+    "Reporter": "Unassigned",
+    "Build": "Unknown",
+    "Customers": [],
+    "Market": "Unknown",
+    "Product_Release": "Unknown",
+    "RCA_Category": "Other",
+    "Sub_Components": "Scripting",
+    "Technical_Solution_Provided": "Script to decode a single SGSN PCMD:\n\n1;2;1E80701;5;-03:00;08:31;2026;33189810;33190510;1;3;404;7E;8;724066704172953;356151144369830;724;06;4266;1;;1;0;;E;;1;;;;;;;33189990;33190290;;41;0;1;724;06;365;724;06;4266;42093;1;93;94;15;16;19;20;98;99;105;;;;;;;;;;;0;;0;;0;;0;;7E;7E;;;;;;;;;;;;;;;;;;;;[1;;;0;0;1;0C9D401600800D35;;;;;;;;;;;;;;;724;06;65534;;;;;;;;;;;;;|",
+    "Technology": [
+        "2G",
+        "3G"
+    ],
+    "Description": "Script to decode a single SGSN PCMD mapping fields from SgsnRaCapArray4Info through SgsnTlliPtmsi."
+}
+{
+    "summary": "CMM AMF Registration failure with NRF FQDN Endpoint Configuration",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-08-31T08:46:00",
+    "Priority": "Unknown",
+    "Reporter": "Suresh Kumar K (Nokia)",
+    "Build": "R6",
+    "Customers": [
+        "TELENET BV"
+    ],
+    "Market": "EUR",
+    "Product_Release": "24.7",
+    "RCA_Category": "Nokia- Product SW",
+    "Sub_Components": "Testing",
+    "Technical_Solution_Provided": "R&D reviewed the implementation and confirmed that a software correction is required, rather than documentation being wrong/missleading. \nThe issue is tracked under IMR170294 and is planned to be available in CMM25.7.0.13 ( schedule permitting ), otherwise in CMM25.7.0.14. \nThe investigation confirmed that the observed behavior is caused by the current CMM implementation. \nWhen the NRF FQDN is provisioned only at the NF Service Instance level, the NRF registration sequence is not initiated. \nAfter the same FQDN is additionally configured at the networkFunctionInstance level, the NRF registration proceeds successfully and the Nnrf link is established.",
+    "Technology": [
+        "5G-SA"
+    ],
+    "Description": "In our deployment, we intend to use the NRF’s FQDN and port 8080, so we configured both the FQDN and the nfIpEndPointListName (with IP set to 0.0.0.0 and port 8080) at the NF service instance level.\n\nAccording to the documentation, configuring the FQDN and nfIpEndPointListName at the NF service instance level should take precedence over the networkFunctionInstance level. However, we’ve observed that if the FQDN is not also configured at the networkFunctionInstance level, the AMF does not establish the Nnrf link. The documentation does not state that the FQDN must be set at the networkFunctionInstance for NRF selection."
+}
+{
+    "summary": "Trace capture procedure on VSR of a VNF based CMM with M IPDS architecture",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-08-30T15:54:00",
+    "Priority": "Unknown",
+    "Reporter": "Rishikant Kushwaha (Nokia)",
+    "Build": "CMM 25.7.0.7",
+    "Customers": [
+        "VODAFONE IDEA LIMITED"
+    ],
+    "Market": "IND",
+    "Product_Release": "25.7",
+    "RCA_Category": "Other",
+    "Sub_Components": "Project Learning",
+    "Technical_Solution_Provided": "Before we start: \nThere are 4 ports in a VSR in a VNF based CMM: \nPort 1/1/1 is for uplink \nPort 1/1/2 is for cross connect between VSR \nPort 1/1/3 is single homing towards IPDS \nPort 1/1/4 is multi homing towards IPDS \n\nAdjust the ports in the below MOP based on specific case requirement. Usually, it is sufficient to capture pcap on port 1/1/1. \n\nVSR trace procedure: \nlogin to the VSR where we want to capture the pcap. \nStep 1: \nDelete mirror22.pcap file: \nfile delete mirror22.pcap. \n\nStep 2: \ncreate mirror22.pcap file \nfile vi mirror22.pcap \nwithout editing press :wq \n\nStep3: \nrun below config in VSR: \n\nconfig \necho \"Mirror Configuration\" \n#-------------------------------------------------- \n    mirror \n        mirror-dest 30 name \"30\" create \n            pcap \"testpcap\" create \n                file-url \"ftp://127.1.0.2/cf3:/mirror22.pcap\" \n            exit \n            no shutdown \n        exit \n        mirror-source \"30\" \n            port 1/1/1 egress ingress \nport 1/1/2 egress ingress \nport 1/1/3 egress ingress \nport 1/1/4 egress ingress \n            no shutdown \n        exit \n    exit \n  \nexit all \n\nStep 4: \nSave the config: \nadmin save \n\nStep 5: \n- to start pcap trace on VSR \n  \ndebug pcap \"testpcap\" capture start \n\nStep 6: \n- to stop pcap trace on VSR \n\ndebug pcap \"testpcap\" capture stop \n\nStep 7: \ncheck the mirror22.pcap file using below command: \nfile dir \n\nStep 8: \nDownload the mirror22.pcap file on necc-0 by doing sftp to the VSR. \n\nNote: \nAlways make sure to stop trace once the scenario is complete.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA"
+    ],
+    "Description": "Hi,\nVSR is the first touch point of a VNF based CMM (with M IPDS architecture) for leaf/spine switches. So, sometimes it becomes essential to capture pcap on VSR to identify and troubleshoot IP connectivity or application-level issues. VSR use SROS instead of linux based OS. So, the trace capture method is different from that of IPDS or other linux based VMs.\nThe pcap trace capture for a VSR is mentioned in the below section. This facility is available in all release of VNF based CMM."
+}
+{
+    "summary": "CMG re-deployment in N-sight project BP ID-13418 release version 25.7.R13",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMG",
+    "Created": "2026-08-27T19:40:00",
+    "Priority": "Unknown",
+    "Reporter": "Pawan 3. Sharma (EXT-Nokia)",
+    "Build": "R13",
+    "Customers": [
+        "WORLD WIDE TECHNOLOGY INC"
+    ],
+    "Market": "NAM",
+    "Product_Release": "25.7",
+    "RCA_Category": "Other",
+    "Sub_Components": "Deployment",
+    "Technical_Solution_Provided": "The UPF LMG pod restart issue in the CMG25.7.13 lab environment was resolved through a configuration update",
+    "Technology": [
+        "4G",
+        "5G-NSA",
+        "5G-SA"
+    ],
+    "Description": "After deployment of the CMG25.7.13 lab environment, the SMF component worked correctly, but the UPF LMG pods were continuously restarting."
+}
+{
+    "summary": "userLocationInformation Feild Missing in 5GCDR",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Lokesh 2. Kumar (EXT-Nokia)",
+    "Components": "CMG",
+    "Created": "2026-08-26T19:03:00",
+    "Priority": "Unknown",
+    "Reporter": "Lokesh 2. Kumar (EXT-Nokia)",
+    "Build": "R4",
+    "Customers": [
+        "EASTLINK CABLE SYSTEMS"
+    ],
+    "Market": "NAM",
+    "Product_Release": "25.7",
+    "RCA_Category": "Nokia-Config",
+    "Sub_Components": "Unknown",
+    "Technical_Solution_Provided": "The parameter “nr-user-location-info” is to include location5G record extension field in CDRs which is received from the AMF. It won’t have any service impact, it will just add the 5G ULI in CDRs \n\nThe following conditions apply: \n• This field is present only when the SMF Legacy Charging is enabled. \n• 5G ULI is transparently copied to the location5G field. The location5G field is not present in every CDR of the session; only when 5G ULI attribute is received. \n• Changes of the 5G location do not trigger the closure of a location5G container. You can control, with the use-last-known-uli command, if the 5G ULI value is valid when the container is open or closed.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "As part of the 5G testing activities, we have observed that the PGW is not including the UserLocationInformation (ULI) in the generated CDRs.\n\nInitially, we added the configuration parameter “include-3gpp-user-location-info-5g” on the PGW. After applying this configuration, we could see that the PGW is sending the ULI information over the Gy interface; however, the same information is still not being included in the CDRs."
+}
+{
+    "summary": "ping from CSD to both NRD VIP lies on same cbis, observed packet loss",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "NRD",
+    "Created": "2026-08-26T18:09:00",
+    "Priority": "Unknown",
+    "Reporter": "Kartik Pal (Nokia)",
+    "Build": "24.7",
+    "Customers": [
+        "MEO - SERVICOS DE COMUNICACOES E MULTIME"
+    ],
+    "Market": "EUR",
+    "Product_Release": "24.7",
+    "RCA_Category": "Nokia-Config",
+    "Sub_Components": "Unknown",
+    "Technical_Solution_Provided": "The RCA for that issue was , we used the same VRRF if for both the virtual ip instances.We deleted the vip for NRD2 and recreated with different vrrf id",
+    "Technology": [
+        "2G",
+        "3G"
+    ],
+    "Description": "During analysis we found that the vip is fluctuating very fast so we were unable to see the state change from active/standby in our commands."
+}
+{
+    "summary": "Solution_Path Management: Peer State RefPointName-default",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Udayakumar Velan Paramasivam (Nokia)",
+    "Components": "CMG-a2",
+    "Created": "2026-08-26T18:05:00",
+    "Priority": "Unknown",
+    "Reporter": "Udayakumar Velan Paramasivam (Nokia)",
+    "Build": "R1",
+    "Customers": [
+        "1GLOBAL TECHNOLOGIES (PORTUGAL), S.A."
+    ],
+    "Market": "EUR",
+    "Product_Release": "25.7",
+    "RCA_Category": "Nokia-Config",
+    "Sub_Components": "Project Learning",
+    "Technical_Solution_Provided": "Solution:-\n\nInitially below configuration were added in CMG for the interface (S5, S8, gn, gp) with the default profile.\n\n            s8 \"default\"\n                peer-list \"SGW\"\n                interface\n                    gtp-c router \"vprn70\" \"S8-S2b-c_GRXIPX-lo\" interface-realm \"realm-s8-grx\"\n                exit\n                signaling\n                    gtp-c\n                        profile \"1GLOBAL_gtp_s8_profile\"\n                    exit\n                exit\n            exit\n\nthis issue was resolved after added the additional configuration for the interface (S5, S8, gn, gp).\n            s8 \"MVNO\"\n                peer-list \"SGW\"\n                interface\n                    gtp-c router \"vprn60\" \"S8-S2b-c_MVNO-lo\" interface-realm \"realm-s8-mvno\"\n                exit\n                signaling\n                    gtp-c\n                        profile \"1GLOBAL_gtp_s8_profile\"\n                    exit\n                exit\n            exit\n\n295516 2026/06/30 09:03:01.994 UTC WARNING: MOBILE_GATEWAY #2001 vprn60 CPM-GTP\n\"Path Management: Peer State: pathUp: Gw-1, Ref point-s8, protocol-gtp, RefPointName-MVNO,peer-149.254.0.193, port-2123, Local address -91.206.235.97, Previous Restart Counter-2, Current Restart Counter-2, Peer Restart Reason-unknown value (0), Pkt Seq Number-0, Peer Type-sgw, Plane Type-control.\"\n\n295515 2026/06/30 09:03:01.993 UTC WARNING: MOBILE_GATEWAY #2001 vprn60 CPM-GTP\n\"Path Management: Peer State: pathIdle: Gw-1, Ref point-s8, protocol-gtp, RefPointName-MVNO,peer-149.254.0.193, port-2123, Local address -91.206.235.97, Previous Restart Counter-4294967295, Current Restart Counter-2, Peer Restart Reason-unknown value (0), Pkt Seq Number-0, Peer Type-sgw, Plane Type-control.\"\n\n295514 2026/06/30 09:03:01.647 UTC WARNING: MOBILE_GATEWAY #2001 vprn70 CPM-GTP\n\"Path Management: Peer State: pathDown: Gw-1, Ref point-s8, protocol-gtp, RefPointName-default,peer-139.7.136.151, port-2123, Local address -91.206.235.81, Previous Restart Counter-9, Current Restart Counter-4294967295, Peer Restart Reason-unknown value (0), Pkt Seq Number-0, Peer Type-sgw, Plane Type-control.\"\n\n295513 2026/06/30 09:02:59.037 UTC WARNING: MOBILE_GATEWAY #2001 vprn70 CPM-GTP\n\"Path Management: Peer State: pathIdle: Gw-1, Ref point-s8, protocol-gtp, RefPointName-default,peer-139.7.136.129, port-2123, Local address -91.206.235.81, Previous Restart Counter-8, Current Restart Counter-8, Peer Restart Reason-unknown value (0), Pkt Seq Number-0, Peer Type-sgw, Plane Type-control.\"",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G"
+    ],
+    "Description": "Issue description:\n\nCustomer reported that Path Management: Peer State RefPointName always reported default value.\n\n\"Path Management: Peer State: pathIdle: Gw-1, Ref point-s8, protocol-gtp, RefPointName-default, \npeer-203.88.2.212, port-2123, Local address -91.206.235.81, Previous Restart Counter-24, \nCurrent Restart Counter-24, Peer Restart Reason-unknown value (0), Pkt Seq Number-0, Peer Type-sgw, Plane Type-control.\""
+}
+{
+    "summary": "CMGA2 Deployment not successful Error: System supports secure boot, enable secure boot options in BIOS",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Haritansh Kumar Sharma (Nokia)",
+    "Components": "CMG-a2",
+    "Created": "2026-08-26T11:11:00",
+    "Priority": "Unknown",
+    "Reporter": "Haritansh Kumar Sharma (Nokia)",
+    "Build": "CMG-A2",
+    "Customers": [
+        "Other"
+    ],
+    "Market": "EUR",
+    "Product_Release": "26.7",
+    "RCA_Category": "3rd Party-HW",
+    "Sub_Components": "Deployment",
+    "Technical_Solution_Provided": "Press COLD Reboot again \nGo to BIOS \nGo to system Utilities /system /Devicelevelconfig/Server security/secure boot settings/enable attempt secure boot \nIt will ask for reboot, reboot the system and continue the deployment.",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA"
+    ],
+    "Description": "CMGA2 Deployment not successful Error: System supports secure boot, enable secure boot options in BIOS"
+}
+{
+    "summary": "xFDS implementation in CMM for S1, N2 and S11 interface",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-08-24T11:38:00",
+    "Priority": "Unknown",
+    "Reporter": "S Naveen (Nokia)",
+    "Build": "CMM",
+    "Customers": [
+        "VODAFONE QATAR P.Q.S.C"
+    ],
+    "Market": "MEA",
+    "Product_Release": "25.7",
+    "RCA_Category": "Customer-Config",
+    "Sub_Components": "Product Design",
+    "Technical_Solution_Provided": "Find the Configuration below \n\ncmm amfServiceIp create --name \"N2_MH1\" --svcIpV4 \"10.228.123.139\" --svcIpV6 \"::\" --poolType \"SFDS\" --poolId \"0\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"false\" --interfaceN2Name \"N2INTF1\" \n    cmm amfServiceIp create --name \"N2_INT_MH1\" --svcIpV4 \"192.168.7.35\" --svcIpV6 \"::\" --poolType \"SFDS\" --poolId \"0\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"false\" --interfaceN2Name \"N2INTF1\" \ncmm amfServiceIp create --name \"N2_INT_MH1_0\" --svcIpV4 \"192.168.7.36\" --svcIpV6 \"::\" --poolType \"IPDS\" --poolId \"0\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"true\" --interfaceN2Name \"N2INTF1\" \ncmm amfServiceIp create --name \"N2_INT_MH1_1\" --svcIpV4 \"192.168.7.37\" --svcIpV6 \"::\" --poolType \"IPDS\" --poolId \"1\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"true\" --interfaceN2Name \"N2INTF1\" \n\ncmm amfServiceIp create --name \"N2_MH2\" --svcIpV4 \"10.228.151.203\" --svcIpV6 \"::\" --poolType \"SFDS\" --poolId \"0\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"false\" --interfaceN2Name \"N2INTF2\" \n    cmm amfServiceIp create --name \"N2_INT_MH2\" --svcIpV4 \"192.168.7.42\" --svcIpV6 \"::\" --poolType \"SFDS\" --poolId \"0\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"false\" --interfaceN2Name \"N2INTF2\" \ncmm amfServiceIp create --name \"N2_INT_MH2_0\" --svcIpV4 \"192.168.7.43\" --svcIpV6 \"::\" --poolType \"IPDS\" --poolId \"0\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"true\" --interfaceN2Name \"N2INTF2\" \ncmm amfServiceIp create --name \"N2_INT_MH2_1\" --svcIpV4 \"192.168.7.44\" --svcIpV6 \"::\" --poolType \"IPDS\" --poolId \"1\" --poolMemberId \"0\" --assignmentType \"floating\" --useFds \"true\" --interfaceN2Name \"N2INTF2\" \n\ncmm amfNgRanLocalEndPointConfig create --endPointName \"N2_RAN_0\" --interfaceType \"N2\" --amfServiceIpName \"N2_INT_MH1_0\" --dscpCode \"AF41\" --interfacePort \"38412\" --protocolProfileName \"N2_sctpProf\" --multiHomed \"true\" --enable \"true\" --amfServiceIpName1 \"N2_INT_MH2_0\" \ncmm amfNgRanLocalEndPointConfig create --endPointName \"N2_RAN_1\" --interfaceType \"N2\" --amfServiceIpName \"N2_INT_MH1_1\" --dscpCode \"AF41\" --interfacePort \"38412\" --protocolProfileName \"N2_sctpProf\" --multiHomed \"true\" --enable \"true\" --amfServiceIpName1 \"N2_INT_MH2_1\"",
+    "Technology": [
+        "4G"
+    ],
+    "Description": "While Deploying CMM using xFDS pods make ensure, S1 & N2 Interface will be different subnet if using MH \n\nFor S11 & S11U interface using same, if not using MH, as per R&D using SH, we can't use different subnet for S11 & S11U \n\nAfter these deployment - Make ensure on subnet configuration xFDS Mate interface to be defined"
+}
+{
+    "summary": "Alarms are not in sync between CMM 26.7.0.1 and NetAct. NetAct shows alarrms that are not active in CMM",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-08-22T00:45:00",
+    "Priority": "Unknown",
+    "Reporter": "Daniel Monroy (Nokia)",
+    "Build": "26.7.0.1",
+    "Customers": [
+        "ALTAN REDES S.A.P.I. DE C.V."
+    ],
+    "Market": "LAT",
+    "Product_Release": "26.7",
+    "RCA_Category": "Nokia-Procedural",
+    "Sub_Components": "Testing",
+    "Technical_Solution_Provided": "Maintenance mode removed on netact and applied the procedure suggested on this case 05870255\n\nAfter the restart, the historical/stale alarm entry is no longer returned by SNMP.\n\nRegarding the workaround procedure we always recommend executing it during a MW, no impact is expected.\n\nWorkaround: Restart the snmpagent process on the ALMS pod:\n\n# 1. Take a backup for the entire /var/log folder in alms0.\n# 2. Login to alms0 as a root user.\n-su appuser\n-ssh alms0\n-su root\nCheck the alarm\n# 3. Check current snmpservice status, PID will be different. NOTE: If STAT is other than \"Sl\", stop the procedure.\nsupervisorctl status snmpagent\n  # Expected output:\n  # snmpagent RUNNING pid 3674453, uptime 0:02:23\nps -o pid,stat,cmd -p $(pgrep -f '/nokia/snmpagent/snmpservice.py')\n  # Expected output:\n  # PID STAT CMD\n  # 3674453 Sl python3 /opt/nokia/lib64/python3.9/site-packages/nokia/snmpagent/snmpservice.py\n\n# 4. Restart snmpservice. STAT in \"R\" is expected.\nsupervisorctl stop snmpagent\nsupervisorctl start snmpagent\nps -o pid,stat,cmd -p $(pgrep -f '/nokia/snmpagent/snmpservice.py')\n  # Expected output:\n  # PID STAT CMD\n  # 3674453 R python3 /opt/nokia/lib64/python3.9/site-packages/nokia/snmpagent/snmpservice.py\n\n# 5. Wait ~2 minutes, and check snmpservice status.\nps -o pid,stat,cmd -p $(pgrep -f '/nokia/snmpagent/snmpservice.py')\n  # Expected output:\n  # PID STAT CMD\n  # 3674453 Sl python3 /opt/nokia/lib64/python3.9/site-packages/nokia/snmpagent/snmpservice.py\n\n# 6. Check again the alarm\n\nafter this the alarms disappeared",
+    "Technology": [
+        "3G",
+        "4G"
+    ],
+    "Description": "At the NetAct level, alarms are still being received that appear as cancelled in the CMM. We cannot delete them in the MME because they are not active, and it is impossible to delete historical information. We already tried refreshing the processes by switching the NEC, but the problem persists. NetAct support states that if they appear there, it is because they are real, but what we observe on the CMM side is that they should not be present. CMM is running 26.7.0.1"
+}
+{
+    "summary": "CMM26.7 SW Release the security hardening disabled the legacy scp",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMM",
+    "Created": "2026-08-21T19:56:00",
+    "Priority": "Unknown",
+    "Reporter": "Alejandro Chaparro (Nokia)",
+    "Build": "26.7.0.1 EC2",
+    "Customers": [
+        "T-MOBILE USA, INC."
+    ],
+    "Market": "NAM",
+    "Product_Release": "26.7",
+    "RCA_Category": "Nokia-Enhancement",
+    "Sub_Components": "Project Learning",
+    "Technical_Solution_Provided": "Use SFTP instead of legacy SCP, SFTP is preferred over SCP due to its enhanced security, robust protocol, and richer feature set, offering an interactive and more reliable file transfer experience.\n\nWe can use a single sftp command to directly download a file from a remote server to your local home folder.\n\nsftp username@remote_host:/path/to/remote/file ~/",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA",
+        "5G-SA"
+    ],
+    "Description": "According to L4, the SCP command used for transferring files was disabled for security reasons in CMM26.7 SW Release."
+}
+{
+    "summary": "Charging QBC for OBR projects.",
+    "Issue_Type": "Knowledge Base",
+    "Assignee": "Unassigned",
+    "Components": "CMG",
+    "Created": "2026-08-21T19:52:00",
+    "Priority": "Unknown",
+    "Reporter": "Sergio Vega Pinzon (Nokia)",
+    "Build": "25.11",
+    "Customers": [
+        "T-MOBILE USA, INC."
+    ],
+    "Market": "NAM",
+    "Product_Release": "25.11",
+    "RCA_Category": "Other",
+    "Sub_Components": "Testing",
+    "Technical_Solution_Provided": "To test with the customer and compare the traffic reported by FBC, we configured the QBC (QoS Flow-Based Charging) triggers and enabled the QBC functionality within the SMF charging profile",
+    "Technology": [
+        "2G",
+        "3G",
+        "4G",
+        "5G-NSA",
+        "5G-SA"
+    ],
+    "Description": "The lesson learned pertains to the consumption of traffic in the roaming project.\n\nWe are utilizing the converged core, which ensures that all traffic consumption is reported to the CHF. However, it is important to note that we are not reconciling the traffic using CDRs or any other method to report it to the visitor network.\n\nTo address this, we are employing QBC (QoS Flow-Based Charging), which differs from FBC (Flow-Based Charging). QBC reports all traffic based on QoS flows rather than RG (Rating Groups) or service IDs associated with the type of traffic generated by the UE. This distinction is crucial because RGs and SIDs configured for visitor and home networks may not align with the equipment configurations.\n\nAdditionally, in the case of video calls, QBC reports two QoS flows: one for the signaling component and another for the video traffic. When comparing traffic reported by FBC and QBC, the total traffic should remain consistent.\n\nAnother critical aspect is the configuration of QBC. To enable QBC charging functionality, it is necessary to activate this feature within the SMF charging profile. Furthermore, if local triggers are required, you must configure or create an event-trigger-QBC within the charging profile.\n\n\nBR,"
+}
